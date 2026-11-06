@@ -1,0 +1,17 @@
+[componentes]
+obrigatorios = ["laje_piso", "parede_eixo_A", "porta_P1"]
+
+[regras]
+sem_interferencia = true
+
+[[folga]]
+# folga perimetral da folha da porta no vão
+entre = ["porta_P1", "parede_eixo_A"]
+min_mm = 3
+max_mm = 10
+
+[[cota]]
+componente = "parede_eixo_A"
+eixo = "y"
+valor = 140
+tol = 0.5

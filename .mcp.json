@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "cad": {
+      "command": "python",
+      "args": ["-m", "cadharness.server"]
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__cad__info",
+      "mcp__cad__verify",
+      "mcp__cad__stability",
+      "mcp__cad__interference",
+      "mcp__cad__clearance",
+      "mcp__cad__render",
+      "mcp__cad__export",
+      "Bash(python -m cadharness:*)",
+      "Bash(python -m pytest:*)",
+      "Read(out/**)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [{ "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/protege_derivados.py\"" }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [{ "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pos_edicao_verifica.py\"", "timeout": 300 }]
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+[project]
+name = "cadharness"
+version = "0.1.0"
+description = "Harness de modelagem CAD/BIM paramétrica para Claude Code (build123d + IfcOpenShell + MCP)"
+requires-python = ">=3.11"
+dependencies = [
+  "build123d>=0.9",
+  "ifcopenshell>=0.8",
+  "mcp>=1.2",
+  "matplotlib>=3.8",
+  "numpy",
+  "shapely>=2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools]
+packages = ["cadharness"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

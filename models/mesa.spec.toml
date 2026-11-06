@@ -1,0 +1,30 @@
+# Requisitos da mesa. O agente só conclui a tarefa com `verify` => ok = true.
+
+[componentes]
+obrigatorios = ["tampo", "perna_1", "perna_2", "perna_3", "perna_4"]
+
+[limites]
+bbox_max = [1250, 650, 760]   # mm (X, Y, Z)
+massa_kg = [15, 40]
+
+[regras]
+sem_interferencia = true
+estavel = true
+margem_estabilidade_min_mm = 30    # CM a >= 30 mm da borda do polígono de apoio (com a carga)
+
+# Pessoa apoiada na quina da mesa (pior caso de tombamento)
+[[carga]]
+massa_kg = 50
+posicao = [600, 300, 750]
+
+[[cota]]
+componente = "tampo"
+eixo = "z"
+valor = 25
+tol = 0.1
+
+[[folga]]
+# saia da frente deve encostar na perna (montagem por contato, sem folga nem interpenetração)
+entre = ["saia_frente", "perna_1"]
+min_mm = 0
+max_mm = 0.01
