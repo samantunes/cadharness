@@ -1,4 +1,7 @@
-# cadharness — regras do agente de modelagem
+# cadharness — regras do agente
+
+Duas atividades distintas neste repositório: **desenvolver o harness** (seção "Como o
+trabalho é organizado") e **modelar objetos com o harness** (demais seções).
 
 Você modela objetos físicos e elementos de construção como **código CAD paramétrico**
 (build123d sobre o kernel B-rep OpenCascade). Não existe "desenhar à mão": toda forma é
@@ -20,11 +23,55 @@ gerada por `models/<nome>.py`, e toda propriedade física é medida por ferramen
 6. **Peças não se interpenetram.** Montagens são por contato (distância 0, volume de
    interseção 0). Use furos/rebaixos reais quando uma peça entra em outra.
 
-## Como o trabalho é organizado
+## Como o trabalho é organizado (leia antes de qualquer tarefa de desenvolvimento)
 
-Siga `docs/PADRAO.md`: capacidades (mapa fixo) → mudanças OpenSpec (`/opsx:propose`,
-`/opsx:apply`, `/opsx:archive`) → cenários QUANDO/ENTÃO, e cada cenário vira um teste.
-No máximo 2 mudanças ativas. Ideias soltas vão para `docs/BACKLOG.md`, não viram código.
+Cadeia: **caso de uso** (`docs/use-cases/UC-NNN-*.md`, o que entregar) → **mudanças OpenSpec**
+(`openspec/changes/`, unidades de 1–3 dias) → **cenários** QUANDO/ENTÃO → **testes**.
+Padrão completo: `docs/PADRAO.md`. Arquitetura: `docs/architecture.md`.
+Contratos de dados: `docs/data-contracts.md`. Pendências: `docs/pendencias.md`.
+
+### Ao concluir um `/opsx:explore`: produzir o caso de uso
+
+Quando a exploração chegar a uma definição (ou o usuário disser que terminou), o resultado
+da exploração é um **documento de caso de uso**:
+
+1. Monte o documento seguindo **exatamente** a estrutura de `docs/use-cases/_TEMPLATE.md`
+   (mesmas seções, mesma ordem, mesma tabela de cabeçalho). Use "Nenhum" onde não se aplica;
+   nunca remova seções.
+2. Próximo número: maior `UC-NNN` em `docs/use-cases/` + 1. Nome: `UC-NNN-<slug>.md`.
+3. Preencha a linha **Módulos** com módulos de `docs/architecture.md` §2. Módulo novo =
+   registre como pendência e proponha a alteração da arquitetura, não invente.
+4. Critérios de aceitação com valores concretos (números, unidades, códigos de recusa);
+   inclua ao menos um CA de recusa/bloqueio.
+5. Decisões não tomadas viram `PEND-NN` em `docs/pendencias.md`, nunca suposições
+   silenciosas. Contratos ainda inexistentes entram como `PROPOSTA`.
+6. Mostre o documento completo no chat e pergunte se pode gravá-lo (o explore exige
+   confirmação antes de escrever). Após o sim, grave o UC, atualize o índice em
+   `docs/use-cases/README.md` e as pendências.
+7. Encerre indicando a quebra sugerida em mudanças OpenSpec (uma por módulo/capacidade,
+   ≤ 5 cenários cada) para o `/opsx:propose`.
+
+### Escopo de edição
+
+- O escopo ativo está em `.claude/escopo.json` (definido por `/escopo`). Um hook bloqueia
+  Edit/Write fora dele. **Não contorne com Bash** (redirecionamento, `sed -i`, `cp`, `mv`).
+- Sem escopo ativo: só planejamento (`docs/use-cases/`, `docs/pendencias.md`,
+  `docs/BACKLOG.md`, `openspec/`) e modelos CAD (`models/`).
+- Antes de `/opsx:apply`, confira se o escopo corresponde ao UC e aos módulos da mudança;
+  se não, peça ao usuário para rodar `/escopo`.
+- Precisou mexer fora do escopo? Pare, explique o porquê e peça a ampliação. Nunca amplie sozinho.
+- Ideia fora do escopo vai para `docs/BACKLOG.md` (uma linha), não para o código.
+
+### Arquitetura e contratos (resumo; detalhes nos docs)
+
+- Código novo em `src/modules/<nome_modulo>/` (`__init__.py` = API pública, `contracts.py`,
+  `schemas/`, `domain/` sem IO, `adapters/` com IO, `tests/`, `MODULE.md`). Entradas em `src/app/`.
+- Importe outro módulo só por `from modules.<m> import X` e só se a dependência estiver em
+  `docs/architecture.md` §2. `tests/test_arquitetura.py` verifica.
+- Tudo que cruza fronteira é contrato Pydantic (`frozen`, `extra="forbid"`), campos em
+  snake_case português com unidade no sufixo (`_mm`, `_kg`). Schemas JSON são gerados, nunca
+  editados à mão. Recusas de regra são `Recusa(codigo, mensagem, detalhes)`, não exceções.
+- `cadharness/` é legado: só correções até a migração (`docs/architecture.md` §6).
 
 ## Convenção de um modelo
 

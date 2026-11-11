@@ -10,3 +10,4 @@ Uma linha por ideia: `capacidade — o que — por quê`. Promover para mudança
 - revit/ponte-http — add-in C# com ExternalEvent e leitura — prepara o mês de licença
 - export/ifc — IfcOpeningElement real em vez de recorte na parede
 - agente/avaliacao — bateria de pedidos em linguagem natural com `claude -p`
+- nucleo — migrar cadharness/model.py para src/modules/nucleo — primeiro passo da arquitetura modular (docs/architecture.md §6)

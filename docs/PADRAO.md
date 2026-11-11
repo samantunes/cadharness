@@ -3,14 +3,18 @@
 Objetivo: saber **sempre** o que está sendo feito, o que vem depois e o que está pronto,
 sem depender de memória. Ferramenta: OpenSpec + Claude Code + git.
 
-## 1. Quatro níveis (e só quatro)
+## 1. Os níveis
 
 | Nível | O que é | Vida útil | Onde fica | Exemplo |
 |---|---|---|---|---|
 | **Produto** | um repositório | anos | GitHub | `cadharness` |
+| **Módulo** | fronteira de código e de escopo do Claude | anos | `src/modules/<m>/` (ver `architecture.md`) | `resolvedor` |
+| **Caso de uso** | o que deve ser entregue, com critérios de aceitação | até ser implementado | `docs/use-cases/UC-NNN-*.md` | `UC-003 Inserir vão com folga mínima` |
 | **Capacidade** | algo que o sistema *sabe fazer*; substantivo | permanente | `openspec/specs/<dominio>/<capacidade>/spec.md` | `intencoes/inserir-vao` |
 | **Mudança** | uma unidade de trabalho; verbo + substantivo | 1 a 3 dias | `openspec/changes/<nome>/` → depois `archive/` | `add-recusa-folga-minima-vao` |
 | **Cenário** | um comportamento verificável QUANDO/ENTÃO | permanente | dentro da spec **e** como teste em `tests/` | "porta a 50 mm do canto é recusada" |
+
+Um caso de uso gera uma ou mais mudanças; cada `CA-NN` do UC vira cenário(s) da mudança.
 
 Regra de ouro: **cenário = teste**. Se não dá para escrever o teste, o cenário está vago.
 
@@ -39,6 +43,8 @@ Exemplo de quebra da intenção "inserir vão":
 ## 3. Mapa de capacidades
 
 Toda mudança aponta para uma linha daqui. Capacidade nova = primeiro altere este mapa.
+Domínio = módulo em `src/modules/` (nomes conforme `docs/architecture.md` §2:
+`exportacao`, `backend_ifc`; `agente` não é módulo, vive em `.claude/`).
 
 | Domínio | Capacidades | Revit? |
 |---|---|---|
@@ -54,7 +60,8 @@ Toda mudança aponta para uma linha daqui. Capacidade nova = primeiro altere est
 ## 4. Fluxo de uma mudança
 
 ```
-/opsx:explore   (opcional, ideia ainda nebulosa)
+/opsx:explore   → termina num caso de uso docs/use-cases/UC-NNN-*.md (estrutura do _TEMPLATE)
+/escopo UC-NNN <mudanca> <modulos>   → limita o que o Claude pode editar
 /opsx:propose   → proposal.md, specs (delta), design.md, tasks.md
       │  você revisa: escopo? cenários com números? cabe em 3 dias?
 /opsx:apply     → código + um teste por cenário
@@ -72,7 +79,9 @@ Git: uma branch por mudança (`mudanca/<nome>`), um PR por mudança, merge só a
 - Mudança parada há mais de 5 dias → divida, arquive o que estiver pronto ou apague.
 
 ## 6. Checklist de pronto
-
+- [ ] Mudança dentro do escopo (`/escopo`) e dos módulos do UC
+- [ ] Contratos novos/alterados com schema gerado e exemplos válidos/inválidos (`data-contracts.md`)
+- [ ] UC atualizado: Situação e tabela de contratos (`PROPOSTA` → `DEFINIDO` → `EXISTE`)
 - [ ] Todos os cenários da spec têm teste com o nome do cenário no docstring
 - [ ] `python -m pytest` verde
 - [ ] Nenhum número no código sem origem comentada (regra, norma ou parâmetro)

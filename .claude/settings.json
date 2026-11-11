@@ -10,22 +10,51 @@
       "mcp__cad__export",
       "Bash(python -m cadharness:*)",
       "Bash(python -m pytest:*)",
-      "Read(out/**)"
+      "Read(out/**)",
+      "Bash(openspec:*)",
+      "Bash(npx @fission-ai/openspec:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(rm -rf:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/escopo.py\""
+          }
+        ]
+      },
+      {
         "matcher": "Edit|Write|MultiEdit",
-        "hooks": [{ "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/protege_derivados.py\"" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/protege_derivados.py\""
+          }
+        ]
       }
     ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write|MultiEdit",
-        "hooks": [{ "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pos_edicao_verifica.py\"", "timeout": 300 }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pos_edicao_verifica.py\"",
+            "timeout": 300
+          }
+        ]
       }
     ]
+  },
+  "env": {
+    "OPENSPEC_TELEMETRY": "0"
   }
 }
