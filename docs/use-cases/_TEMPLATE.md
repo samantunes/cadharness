@@ -6,7 +6,7 @@
 | Situação | Planejado \| Parcial \| Implementado. Diga o que já existe e o que falta implementar |
 | Origem | <requisitos, histórias ou conversas que originaram este caso de uso> |
 | Regras da release | <IDs das regras globais da release que se aplicam> |
-| Módulos | `src/modules/<modulo>` (um ou mais; define o escopo do Claude Code) |
+| Módulos | `src/modules/<modulo>` (um ou mais) |
 | Telas | <telas afetadas, ou "Nenhuma"> |
 | Endpoints | <endpoints HTTP ou ferramentas MCP criadas/alteradas, ou "Nenhum" com o motivo> |
 | Documentação visual | <links para diagramas, PDFs, protótipos> |

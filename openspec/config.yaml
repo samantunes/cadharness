@@ -1,37 +1,5 @@
 schema: spec-driven
 
 context: |
-  Projeto: cadharness — harness para modelagem CAD/BIM por IA com controle geométrico pela aplicação.
-  Escreva todos os artefatos em português do Brasil.
-  Princípio: a IA declara intenção; a aplicação resolve a geometria de forma determinística; o Revit/IFC gera.
-  Unidades: mm, kg, graus. Gravidade -Z.
-  Padrão de divisão do trabalho: docs/PADRAO.md (capacidades, mudanças, cenários, limite de WIP).
-  Arquitetura modular em src/modules/<modulo>: docs/architecture.md. Contratos: docs/data-contracts.md.
-  Mapa de capacidades válidas: docs/PADRAO.md seção 3. Não invente capacidade fora do mapa sem propor a alteração do mapa.
-
-rules:
-  proposal:
-    - Cite o caso de uso de origem (docs/use-cases/UC-NNN-*.md) e os CA-NN que a mudança cobre.
-    - Declare os módulos tocados (docs/architecture.md §2); devem estar na linha Módulos do UC.
-    - Uma mudança altera UMA capacidade. Se precisar de duas, divida em duas mudanças.
-    - Declare o que fica fora do escopo.
-    - Declare se precisa de Revit (sim/não). Se não precisar, a mudança deve rodar só com o backend IFC.
-  specs:
-    - Todo requisito tem pelo menos um cenário QUANDO/ENTÃO com valores numéricos concretos.
-    - Inclua ao menos um cenário de recusa (entrada inválida que deve ser rejeitada).
-    - No máximo 5 cenários por mudança; acima disso, divida.
-  design:
-    - Liste os contratos (contracts.py) criados ou alterados, com situação PROPOSTA/DEFINIDO/EXISTE e impacto de versão.
-  tasks:
-    - No máximo 10 tarefas; a mudança inteira cabe em até 3 dias.
-    - Corte vertical — esquema, resolvedor, backend e teste na mesma mudança.
-    - A última tarefa é sempre — todos os cenários viraram testes e `python -m pytest` passa.
-
-operations:
-  apply:
-    guidance:
-      - Cada cenário da spec vira um teste em tests/ com o nome do cenário no docstring.
-      - Não marque tarefa como concluída sem o teste correspondente passando.
-  archive:
-    guidance:
-      - Só arquive com `python -m pytest` verde e a checklist de pronto do docs/PADRAO.md atendida.
+  Language: pt-BR
+  All artifacts must be written in pt-BR.

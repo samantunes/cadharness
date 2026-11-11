@@ -31,8 +31,7 @@ então importa-se `from modules.resolvedor import resolver_intencao`.
 
 ## 2. Módulos
 
-O módulo é a unidade de escopo do Claude Code, de dono e de teste. Domínio do mapa de
-capacidades (`docs/PADRAO.md` §3) = módulo.
+O módulo é a unidade de dono e de teste.
 
 | Módulo | Responsabilidade | Depende de | Revit? |
 |---|---|---|---|
@@ -59,7 +58,7 @@ Novo módulo ou nova aresta no grafo = alterar esta tabela primeiro (mudança pr
 
 1. Um módulo importa outro **só pela API pública**: `from modules.resolvedor import X`.
    Proibido `from modules.resolvedor.domain...` fora do próprio módulo.
-2. Só as dependências da tabela. `tests/test_arquitetura.py` falha se alguma regra for quebrada.
+2. Só as dependências da tabela.
 3. Dados que cruzam a fronteira são **contratos** (`contracts.py`), nunca objetos internos,
    dicts soltos ou tipos de bibliotecas (IfcOpenShell, build123d) — ver `data-contracts.md`.
 4. `domain/` não faz IO. Tudo que lê/escreve arquivo, chama rede ou abre IFC fica em `adapters/`.
