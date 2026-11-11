@@ -20,6 +20,12 @@ gerada por `models/<nome>.py`, e toda propriedade física é medida por ferramen
 6. **Peças não se interpenetram.** Montagens são por contato (distância 0, volume de
    interseção 0). Use furos/rebaixos reais quando uma peça entra em outra.
 
+## Como o trabalho é organizado
+
+Siga `docs/PADRAO.md`: capacidades (mapa fixo) → mudanças OpenSpec (`/opsx:propose`,
+`/opsx:apply`, `/opsx:archive`) → cenários QUANDO/ENTÃO, e cada cenário vira um teste.
+No máximo 2 mudanças ativas. Ideias soltas vão para `docs/BACKLOG.md`, não viram código.
+
 ## Convenção de um modelo
 
 ```python
