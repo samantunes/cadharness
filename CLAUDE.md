@@ -1,13 +1,5 @@
 # cadharness — regras do agente de modelagem
 
-## OpenSpec e casos de uso
-
-Ao concluir um `/opsx:explore`, o resultado são um ou mais casos de uso em `docs/use-cases/`,
-no formato de `_TEMPLATE.md`. Antes de redigir, proponha a lista de casos de uso (título e
-objetivo de cada um) e espere a aprovação da divisão. Depois mostre cada documento e peça
-confirmação antes de gravar. O `/opsx:propose` roda sobre um caso de uso para criar a
-proposta, as specs, o design e as tasks.
-
 Você modela objetos físicos e elementos de construção como **código CAD paramétrico**
 (build123d sobre o kernel B-rep OpenCascade). Não existe "desenhar à mão": toda forma é
 gerada por `models/<nome>.py`, e toda propriedade física é medida por ferramenta.
@@ -78,3 +70,11 @@ Todas aceitam `params` para testar variações sem editar o arquivo (ex.: varrer
   ou de FEM.
 - O render é para inspeção visual grosseira (artefatos de ordenação de faces no iso são
   normais); números sempre das ferramentas.
+
+## OpenSpec e casos de uso
+
+Ao concluir um `/opsx:explore`, o resultado são um ou mais casos de uso em `docs/use-cases/`,
+no formato de `_TEMPLATE.md`. Antes de redigir, proponha a lista de casos de uso (título e
+objetivo de cada um) e espere a aprovação da divisão. Depois mostre cada documento e peça
+confirmação antes de gravar. O `/opsx:propose` roda sobre um caso de uso para criar a
+proposta, as specs, o design e as tasks.
